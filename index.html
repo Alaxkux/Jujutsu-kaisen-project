@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUJUTSU KAISEN — Cursed Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Noto+Serif+JP:wght@400;700;900&family=Oswald:wght@400;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     LOADING PAGE
+══════════════════════════════════ -->
+<div id="loading-page">
+
+  <!-- Counter loader (shows first) -->
+  <div id="loader">
+    <div class="ld-kanji">呪術廻戦</div>
+    <div class="ld-bar">
+      <div class="ld-fill" id="ld-fill"></div>
+    </div>
+    <div class="ld-num" id="ld-pct">000</div>
+  </div>
+
+  <!-- Main scene (fades in after loading) -->
+  <div id="ld-scene">
+    <div class="ld-bg-grad"></div>
+    <div class="ld-bg-red"></div>
+    <div class="ld-bg-blue"></div>
+    <div class="ld-bg-kanji">呪</div>
+
+    <div class="ld-rings">
+      <div class="ld-ring"></div>
+      <div class="ld-ring"></div>
+      <div class="ld-ring"></div>
+    </div>
+
+    <div class="ld-particles" id="ld-particles"></div>
+    <div class="ld-slash-container" id="ld-slash-container"></div>
+
+    <div class="ld-corner tl"></div>
+    <div class="ld-corner tr"></div>
+    <div class="ld-corner bl"></div>
+    <div class="ld-corner br"></div>
+
+    <!-- Logo -->
+    <div class="ld-logo-wrap">
+      <div class="ld-eyebrow">Tokyo Metropolitan Curse Technical College</div>
+      <div class="ld-divider top"></div>
+      <div class="ld-logo-main" id="ld-logo-text"></div>
+      <div class="ld-logo-jp">呪術廻戦</div>
+      <div class="ld-tagline">呪い · 祓い · 強さ — Curse · Exorcise · Strength</div>
+      <div class="ld-divider bot"></div>
+    </div>
+
+    <!-- Enter button -->
+    <div class="ld-enter-wrap">
+      <button class="ld-enter-btn" id="ld-enter-btn" onclick="enterDomain()">
+        ✦ ENTER THE DOMAIN ✦
+      </button>
+    </div>
+
+    <!-- Status bar -->
+    <div class="ld-status">
+      <div class="ld-si"><span class="ld-si-label">Cursed Energy</span><span class="ld-si-val">∞ UNLIMITED</span></div>
+      <div class="ld-si"><span class="ld-si-label">Sorcerer Grade</span><span class="ld-si-val">SPECIAL</span></div>
+      <div class="ld-si"><span class="ld-si-label">Domain Status</span><span class="ld-si-val">ACTIVE</span></div>
+      <div class="ld-si"><span class="ld-si-label">Characters</span><span class="ld-si-val">05 LOADED</span></div>
+    </div>
+  </div>
+
+</div><!-- end #loading-page -->
+
+
+<!-- ══════════════════════════════════
+     DOMAIN EXPANSION OVERLAY
+══════════════════════════════════ -->
+<div id="de-overlay">
+  <div id="de-bg"></div>
+  <div id="de-rings"></div>
+  <div id="de-spirals"></div>
+  <div id="de-slashes"></div>
+  <div id="de-text">
+    <div class="de-kanji">域展開</div>
+    <div class="de-en">DOMAIN EXPANSION</div>
+    <div class="de-sub">— INFINITE VOID —</div>
+  </div>
+  <div id="de-flash"></div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     CHARACTER PAGE (hidden until transition)
+══════════════════════════════════ -->
+<div id="chars-page">
+
+  <!-- Flash overlay for tab switching -->
+  <div id="char-flash"></div>
+
+  <!-- Navbar -->
+  <nav id="chars-nav">
+    <div id="mob-toggle"><span></span><span></span><span></span></div>
+    <div class="cn-logo">呪術廻戦</div>
+    <div class="cn-links">
+      <a href="#">Home</a>
+      <a href="#" class="active">Characters</a>
+      <a href="#">Help</a>
+    </div>
+    <div class="cn-right">
+      <button class="cn-signup">Sign Up</button>
+      <input class="cn-search" type="text" placeholder="Search...">
+    </div>
+  </nav>
+
+  <!-- Marquee -->
+  <div class="marquee-bar"><div class="marquee-inner" id="mi"></div></div>
+
+  <!-- Mobile nav drawer -->
+  <div id="mob-nav">
+    <div class="mob-link mob-active" data-char="gojo"    onclick="switchChar('gojo');closeMobNav()">Gojo Satoru <span style="opacity:0.3;margin-left:8px">五条 悟</span></div>
+    <div class="mob-link"           data-char="itadori"  onclick="switchChar('itadori');closeMobNav()">Yuji Itadori <span style="opacity:0.3;margin-left:8px">虎杖 悠仁</span></div>
+    <div class="mob-link"           data-char="megumi"   onclick="switchChar('megumi');closeMobNav()">Megumi Fushiguro <span style="opacity:0.3;margin-left:8px">伏黒 恵</span></div>
+    <div class="mob-link"           data-char="sukuna"   onclick="switchChar('sukuna');closeMobNav()">Ryomen Sukuna <span style="opacity:0.3;margin-left:8px">両面宿儺</span></div>
+    <div class="mob-link"           data-char="toji"     onclick="switchChar('toji');closeMobNav()">Toji Fushiguro <span style="opacity:0.3;margin-left:8px">伏黒 甚爾</span></div>
+  </div>
+
+  <!-- Character slides -->
+  <div id="char-scene">
+
+    <!-- ── GOJO ── -->
+    <div class="char-page active" data-char="gojo">
+      <div class="char-bg"></div>
+      <div class="char-bg-overlay"></div>
+      <div class="aura-container" id="ac-gojo"></div>
+      <div class="bg-kanji">悟</div>
+      <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+      <div class="layout">
+        <div class="lp">
+          <div class="grade-badge"><span class="grade-icon">✦</span><span class="grade-text">Special Grade</span></div>
+          <div class="char-title">The Strongest Jujutsu Sorcerer</div>
+          <div class="char-name-en">GOJO SATORU</div>
+          <div class="char-name-jp">（五条 悟）</div>
+          <div class="divider-line"></div>
+          <div class="char-bio">Gojo Satoru is a special grade jujutsu sorcerer and teacher at Tokyo Jujutsu High, known as the strongest sorcerer in the world. His Limitless Technique combined with the Six Eyes makes him virtually untouchable. Arrogant and playful, he cares deeply for his students.</div>
+        </div>
+        <div class="cp">
+          <div class="char-art-wrap">
+            <div class="char-glow"></div>
+            <div class="scan-frame" style="width:250px;height:370px;bottom:6%;left:50%;position:absolute;border:1px solid rgba(0,207,255,0.25);">
+              <div class="sc tl" style="top:-1px;left:-1px;color:rgba(0,207,255,0.7)"></div>
+              <div class="sc tr" style="top:-1px;right:-1px;color:rgba(0,207,255,0.7)"></div>
+              <div class="sc bl" style="bottom:-1px;left:-1px;color:rgba(0,207,255,0.7)"></div>
+              <div class="sc br" style="bottom:-1px;right:-1px;color:rgba(0,207,255,0.7)"></div>
+            </div>
+            <!-- ═══════════════════════════════════ -->
+            <!-- GOJO IMAGE — paste your URL below  -->
+            <img src="YOUR_GOJO_IMAGE_URL_HERE" class="char-art-img" alt="Gojo Satoru" onerror="this.style.display='none'">
+            <!-- ═══════════════════════════════════ -->
+          </div>
+        </div>
+        <div class="rp">
+          <div class="about-header"><div class="about-dot"></div><div class="about-title">ABOUT</div></div>
+          <div class="stat-block"><div class="stat-label">Affiliation</div><div class="stat-value">Tokyo Jujutsu High</div></div>
+          <div class="stat-block"><div class="stat-label">Status</div><div class="stat-value">Ally</div></div>
+          <div class="stat-block"><div class="stat-label">Relationships</div><div class="stat-value">Suguru Geto, Utahime, Shoko Ieri, Yuji Itadori</div></div>
+          <div class="stat-block"><div class="stat-label">Skills</div><div class="stat-value">Limitless, Six Eyes, Cursed Technique Reversal</div></div>
+          <div class="stat-block"><div class="stat-label">Troops</div><div class="stat-value">First Year Trio</div></div>
+          <div class="stat-block"><div class="stat-label">Weapons &amp; EQ</div><div class="stat-value">None (Relies on Cursed Techniques)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ITADORI ── -->
+    <div class="char-page" data-char="itadori">
+      <div class="char-bg"></div>
+      <div class="char-bg-overlay"></div>
+      <div class="aura-container" id="ac-itadori"></div>
+      <div class="bg-kanji">悠</div>
+      <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+      <div class="layout">
+        <div class="lp">
+          <div class="grade-badge"><span class="grade-icon">✦</span><span class="grade-text">Special Grade</span></div>
+          <div class="char-title">The Vessel of Sukuna</div>
+          <div class="char-name-en">YUJI ITADORI</div>
+          <div class="char-name-jp">（虎杖 悠仁）</div>
+          <div class="divider-line"></div>
+          <div class="char-bio">Yuji Itadori is a first-year student at Tokyo Jujutsu High and vessel for the King of Curses. He possesses superhuman physical ability and has swallowed Sukuna's fingers, becoming one of the most powerful sorcerers in the modern era.</div>
+        </div>
+        <div class="cp">
+          <div class="char-art-wrap">
+            <div class="char-glow"></div>
+            <div class="scan-frame" style="width:250px;height:370px;bottom:6%;left:50%;position:absolute;border:1px solid rgba(255,100,0,0.25);">
+              <div class="sc tl" style="top:-1px;left:-1px;color:rgba(255,100,0,0.7)"></div>
+              <div class="sc tr" style="top:-1px;right:-1px;color:rgba(255,100,0,0.7)"></div>
+              <div class="sc bl" style="bottom:-1px;left:-1px;color:rgba(255,100,0,0.7)"></div>
+              <div class="sc br" style="bottom:-1px;right:-1px;color:rgba(255,100,0,0.7)"></div>
+            </div>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- ITADORI IMAGE — paste your URL below   -->
+            <img src="YOUR_ITADORI_IMAGE_URL_HERE" class="char-art-img" alt="Yuji Itadori" onerror="this.style.display='none'">
+            <!-- ═══════════════════════════════════════ -->
+          </div>
+        </div>
+        <div class="rp">
+          <div class="about-header"><div class="about-dot"></div><div class="about-title">ABOUT</div></div>
+          <div class="stat-block"><div class="stat-label">Affiliation</div><div class="stat-value">Tokyo Jujutsu High</div></div>
+          <div class="stat-block"><div class="stat-label">Status</div><div class="stat-value">Alive (Vessel)</div></div>
+          <div class="stat-block"><div class="stat-label">Relationships</div><div class="stat-value">Sukuna, Megumi, Nobara, Gojo</div></div>
+          <div class="stat-block"><div class="stat-label">Skills</div><div class="stat-value">Black Flash, Divergent Fist, Cursed Energy Manipulation</div></div>
+          <div class="stat-block"><div class="stat-label">Troops</div><div class="stat-value">Jujutsu Sorcerers</div></div>
+          <div class="stat-block"><div class="stat-label">Weapons &amp; EQ</div><div class="stat-value">Slaughter Demon (Cursed Tool)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MEGUMI ── -->
+    <div class="char-page" data-char="megumi">
+      <div class="char-bg"></div>
+      <div class="char-bg-overlay"></div>
+      <div class="aura-container" id="ac-megumi"></div>
+      <div class="bg-kanji">恵</div>
+      <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+      <div class="layout">
+        <div class="lp">
+          <div class="grade-badge"><span class="grade-icon">✦</span><span class="grade-text">Special Grade</span></div>
+          <div class="char-title">The Ten Shadows User</div>
+          <div class="char-name-en">MEGUMI FUSHIGURO</div>
+          <div class="char-name-jp">（伏黒 恵）</div>
+          <div class="divider-line"></div>
+          <div class="char-bio">Megumi Fushiguro is a first-year student at Tokyo Jujutsu High and descendant of the Zenin Clan. He uses the Ten Shadows Technique to summon shikigami from his shadows. Serious, analytical, and fiercely protective.</div>
+        </div>
+        <div class="cp">
+          <div class="char-art-wrap">
+            <div class="char-glow"></div>
+            <div class="scan-frame" style="width:250px;height:370px;bottom:6%;left:50%;position:absolute;border:1px solid rgba(100,40,255,0.25);">
+              <div class="sc tl" style="top:-1px;left:-1px;color:rgba(120,60,255,0.7)"></div>
+              <div class="sc tr" style="top:-1px;right:-1px;color:rgba(120,60,255,0.7)"></div>
+              <div class="sc bl" style="bottom:-1px;left:-1px;color:rgba(120,60,255,0.7)"></div>
+              <div class="sc br" style="bottom:-1px;right:-1px;color:rgba(120,60,255,0.7)"></div>
+            </div>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- MEGUMI IMAGE — paste your URL below    -->
+            <img src="YOUR_MEGUMI_IMAGE_URL_HERE" class="char-art-img" alt="Megumi Fushiguro" onerror="this.style.display='none'">
+            <!-- ═══════════════════════════════════════ -->
+          </div>
+        </div>
+        <div class="rp">
+          <div class="about-header"><div class="about-dot"></div><div class="about-title">ABOUT</div></div>
+          <div class="stat-block"><div class="stat-label">Affiliation</div><div class="stat-value">Tokyo Jujutsu High</div></div>
+          <div class="stat-block"><div class="stat-label">Status</div><div class="stat-value">Ally (Current)</div></div>
+          <div class="stat-block"><div class="stat-label">Relationships</div><div class="stat-value">Tsumiki Fushiguro, Nobara, Kagisaki, Satoru Gojo</div></div>
+          <div class="stat-block"><div class="stat-label">Skills</div><div class="stat-value">Ten Shadows Technique, Domain Expansion, Cursed Tool Mastery</div></div>
+          <div class="stat-block"><div class="stat-label">Troops</div><div class="stat-value">First Year Trio</div></div>
+          <div class="stat-block"><div class="stat-label">Weapons &amp; EQ</div><div class="stat-value">None (Relies on Cursed Techniques)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SUKUNA ── -->
+    <div class="char-page" data-char="sukuna">
+      <div class="char-bg"></div>
+      <div class="char-bg-overlay"></div>
+      <div class="aura-container" id="ac-sukuna"></div>
+      <div class="bg-kanji">儺</div>
+      <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+      <div class="layout">
+        <div class="lp">
+          <div class="grade-badge"><span class="grade-icon">✦</span><span class="grade-text">Special Grade</span></div>
+          <div class="char-title">The King of Curses</div>
+          <div class="char-name-en">RYOMEN SUKUNA</div>
+          <div class="char-name-jp">（両面宿儺）</div>
+          <div class="divider-line"></div>
+          <div class="char-bio">Ryomen Sukuna is a legendary Jujutsu Sorcerer from a thousand years ago, the undisputed King of Curses. Currently incarnated in Yuji Itadori's body, manipulating events toward his full resurrection and absolute dominance.</div>
+        </div>
+        <div class="cp">
+          <div class="char-art-wrap">
+            <div class="char-glow"></div>
+            <div class="scan-frame" style="width:250px;height:370px;bottom:6%;left:50%;position:absolute;border:1px solid rgba(180,0,0,0.3);">
+              <div class="sc tl" style="top:-1px;left:-1px;color:rgba(200,0,0,0.8)"></div>
+              <div class="sc tr" style="top:-1px;right:-1px;color:rgba(200,0,0,0.8)"></div>
+              <div class="sc bl" style="bottom:-1px;left:-1px;color:rgba(200,0,0,0.8)"></div>
+              <div class="sc br" style="bottom:-1px;right:-1px;color:rgba(200,0,0,0.8)"></div>
+            </div>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- SUKUNA IMAGE — paste your URL below    -->
+            <img src="YOUR_SUKUNA_IMAGE_URL_HERE" class="char-art-img" alt="Ryomen Sukuna" onerror="this.style.display='none'">
+            <!-- ═══════════════════════════════════════ -->
+          </div>
+        </div>
+        <div class="rp">
+          <div class="about-header"><div class="about-dot"></div><div class="about-title">ABOUT</div></div>
+          <div class="stat-block"><div class="stat-label">Era</div><div class="stat-value">Heian Period (Incarnated)</div></div>
+          <div class="stat-block"><div class="stat-label">Ally</div><div class="stat-value">None</div></div>
+          <div class="stat-block"><div class="stat-label">Relationships</div><div class="stat-value">Yuji Itadori (Vessel), Uraume (Servant)</div></div>
+          <div class="stat-block"><div class="stat-label">Skills</div><div class="stat-value">Malevolent Shrine, Cleave &amp; Dismantle, Domain Expansion</div></div>
+          <div class="stat-block"><div class="stat-label">Troops</div><div class="stat-value">Cursed Spirits</div></div>
+          <div class="stat-block"><div class="stat-label">Weapons &amp; EQ</div><div class="stat-value">Cursed Tools (Kamutoke, Hitton)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TOJI ── -->
+    <div class="char-page" data-char="toji">
+      <div class="char-bg"></div>
+      <div class="char-bg-overlay"></div>
+      <div class="aura-container" id="ac-toji"></div>
+      <div class="bg-kanji">甚</div>
+      <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+      <div class="layout">
+        <div class="lp">
+          <div class="grade-badge"><span class="grade-icon">◆</span><span class="grade-text">Semi-Grade 1</span></div>
+          <div class="char-title">The Sorcerer Killer</div>
+          <div class="char-name-en">TOJI FUSHIGURO</div>
+          <div class="char-name-jp">（伏黒 甚爾）</div>
+          <div class="divider-line"></div>
+          <div class="char-bio">Toji Fushiguro is a former member of the Zenin Clan and a non-curse user known as the "Sorcerer Killer." He possesses superhuman physical ability and masterful use of cursed tools — a formidable assassin who overpowers even Special Grade sorcerers.</div>
+        </div>
+        <div class="cp">
+          <div class="char-art-wrap">
+            <div class="char-glow"></div>
+            <div class="scan-frame" style="width:250px;height:370px;bottom:6%;left:50%;position:absolute;border:1px solid rgba(0,180,150,0.22);">
+              <div class="sc tl" style="top:-1px;left:-1px;color:rgba(0,200,180,0.6)"></div>
+              <div class="sc tr" style="top:-1px;right:-1px;color:rgba(0,200,180,0.6)"></div>
+              <div class="sc bl" style="bottom:-1px;left:-1px;color:rgba(0,200,180,0.6)"></div>
+              <div class="sc br" style="bottom:-1px;right:-1px;color:rgba(0,200,180,0.6)"></div>
+            </div>
+            <!-- ═══════════════════════════════════════ -->
+            <!-- TOJI IMAGE — paste your URL below      -->
+            <img src="YOUR_TOJI_IMAGE_URL_HERE" class="char-art-img" alt="Toji Fushiguro" onerror="this.style.display='none'">
+            <!-- ═══════════════════════════════════════ -->
+          </div>
+        </div>
+        <div class="rp">
+          <div class="about-header"><div class="about-dot"></div><div class="about-title">ABOUT</div></div>
+          <div class="stat-block"><div class="stat-label">Affiliation</div><div class="stat-value">Former Zenin Clan</div></div>
+          <div class="stat-block"><div class="stat-label">Relationships</div><div class="stat-value">Megumi Fushiguro (Son)</div></div>
+          <div class="stat-block"><div class="stat-label">Techniques</div><div class="stat-value">Heavenly Restriction, Innate Body, Master of Cursed Tools</div></div>
+          <div class="stat-block"><div class="stat-label">Skills</div><div class="stat-value">Superhuman Strength, Speed, Cursed Tool Mastery</div></div>
+          <div class="stat-block"><div class="stat-label">Troops</div><div class="stat-value">None</div></div>
+          <div class="stat-block"><div class="stat-label">Weapons &amp; EQ</div><div class="stat-value">Playful Cloud, Inverted Spear of Heaven, Split Soul Katana</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #char-scene -->
+
+  <!-- Character tabs -->
+  <div class="char-tabs">
+    <button class="char-tab active" data-target="gojo">  <span class="tab-name">Gojo Satoru</span>    <span class="tab-jp">五条 悟</span></button>
+    <button class="char-tab"        data-target="itadori"><span class="tab-name">Yuji Itadori</span>    <span class="tab-jp">虎杖 悠仁</span></button>
+    <button class="char-tab"        data-target="megumi"> <span class="tab-name">Megumi Fushiguro</span><span class="tab-jp">伏黒 恵</span></button>
+    <button class="char-tab"        data-target="sukuna"> <span class="tab-name">Ryomen Sukuna</span>   <span class="tab-jp">両面宿儺</span></button>
+    <button class="char-tab"        data-target="toji">   <span class="tab-name">Toji Fushiguro</span>  <span class="tab-jp">伏黒 甚爾</span></button>
+  </div>
+
+</div><!-- end #chars-page -->
+
+<script src="main.js"></script>
+<script>
+  // Close mobile nav helper (called from inline onclick)
+  function closeMobNav() {
+    document.getElementById("mob-toggle").classList.remove("open");
+    document.getElementById("mob-nav").classList.remove("open");
+  }
+</script>
+</body>
+</html>
